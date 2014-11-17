@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+        <script src="./date.tgdz.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <pre  style="margin:0 auto;background-color: #CCC;">
+<ul id="test">
+    <li>test</li>
+</ul>
+        </pre>
+        <script type="text/javascript">
+        
+        $(function(){
+            var li=$('#test li:first').clone();
+            var li1=$('#test li:first').clone();
+            var li2=$('#test li:first').clone();
+            var f='Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |';
+            var f1='Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |$e';
+            var f2='Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |$c';
+            li.html(f+' : '+$.fmtDate(f));
+            li1.html(f1+' : '+$.fmtDate(f1));
+            li2.html(f2+' : '+$.fmtDate(f2));
+            $('#test').append(li);
+            $('#test').append(li1);
+            $('#test').append(li2);
+        });
+    </script>
+    </body>
+    
+</html>
