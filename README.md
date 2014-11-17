@@ -46,6 +46,7 @@ date format like function date in php
 +  $e   英文
 +  $c   中文
 
+----
 
 >made by [Tsotsi](http://mail.tsotsi.cn)
 >
