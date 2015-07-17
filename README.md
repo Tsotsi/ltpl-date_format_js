@@ -1,11 +1,6 @@
 date_format_js
 ==============
 
-date format like function date in php
--------------------------------------
-
-
-实现了一些php date函数里的功能
 
 
 
