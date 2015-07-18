@@ -48,21 +48,27 @@ ltpl
 ## 新鲜出炉的模板引擎
 ------
 ###例子
-+ function callback(){console.log('end!')}
-+ ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},callback)
-+ var html='<div>{{d.name}}</div>';     html : <div>tsotsi</div>
-+ ####支持管道
-+ var html='<div>{{d.name| entityencode}}</div>';     html : &lt;div&gt;tsotsi&lt;/div&gt;
-+ ####支持循环
-+ var html='<div>{{for d.msg as k v}}<h1>{{k}}:{{v}}</h1>{{/for}}</div>';     html :<div><h1>a:1</h1><h1>b:<h3>sb</h3></h1></div>;
+ 	function callback(){console.log('end!')}
+	ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</	h1>',msg:{a:1,b:'<h3>sb</h3>'}},callback)
+	var html='<div>{{d.name}}</div>';     
+	html : 	<div>tsotsi</div>
+####支持管道
+	var html='<div>{{d.name| entityencode}}</div>';     	html : &lt;div&gt;tsotsi&lt;/div&gt;
+####支持循环
+	<code>var html='<div>{{for d.msg as k v}}<h1>{{k}}:{{v}}</h1>{{/for}}</div>';     
+	html :<div><h1>a:1</h1><h1>b:<h3>sb</h3></h1></div>;</code>
 ------
-+ ####支持自定义helper函数
-+ ltpl.helper('myhelper',function(v){return 'hello '+v;});ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}});
-+ var html='<div>{{d.name| myhelper}}</div>';    html : <div>hello tsotsi</div>
+####支持自定义helper函数
+	ltpl.helper('myhelper',function(v){return 'hello '+v;});
+	ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}});
+	var html='<div>{{d.name| myhelper}}</div>';  
+	html : <div>hello tsotsi</div>
 ------
-+ ####支持重定义开闭标签
-+ ltpl.config({openTag:'<%',closeTag:'%>'});ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}})
-+ var html='<div><%d.name%></div>';    html : <div>tsotsi</div>
+####支持重定义开闭标签
+	ltpl.config({openTag:'<%',closeTag:'%>'});
+	ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}})
+	var html='<div><%d.name%></div>';    
+	html : <div>tsotsi</div>
 
 
 >made by [Tsotsi](http://mail.tsotsi.cn)
