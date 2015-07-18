@@ -53,7 +53,7 @@ ltpl
 ####支持管道
 	var html='<div>{{d.name| entityencode}}</div>';     	html : &lt;div&gt;tsotsi&lt;/div&gt;
 ####支持循环
-	<code>var html='<div>{{for d.msg as k v}}<h1>{{k}}:{{v}}</h1>{{/for}}</div>';     
+	var html='<div>{{for d.msg as k v}}<h1>{{k}}:{{v}}</h1>{{/for}}';
 	html :<div><h1>a:1</h1><h1>b:<h3>sb</h3></h1></div>;</code>
 ------
 ####支持自定义helper函数
