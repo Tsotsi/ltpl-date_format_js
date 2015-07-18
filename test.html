@@ -10,30 +10,52 @@ test for date.format
         <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
         <script src="./date.tgdz.js" type="text/javascript"></script>
         <script src="./date.format.js" type="text/javascript"></script>
-        <script src="./ltpl.js" type="text/javascript"></script>
+        <script src="./ltpl.min.js" type="text/javascript"></script>
     </head>
     <body>
+    <textarea id="ltpl"></textarea>
         <pre  style="margin:0 auto;background-color: #CCC;">
 <ul id="test">
     <li>test</li>
 </ul>
         </pre>
         <script id="a" type="text/html">
-             <div>
-                 {{d.name}}
+            <!--hehe-->
+            <!---->
+             <div style="color:red;" class='a'>
+                 {{ d.name |myhelper}}
             </div>
             <span>{{d.age}}</span>
+            <h1>{{d.height}}</h1>
+            <h1>{{# d.info | format}}</h1>
+            <h1>{{# d.info }}</h1>
+            <h1>{{}}</h1>
+            {{for d.msg as k v}}
+
+             <h3>{{k}}:{{v}}</h3>
+            {{/for}}
+            {{for d.msg as k vs}}
+            <span style="color:red;">{{k}}:{{vs| entityencode}}</span>
+            {{/for}}
         </script>
         <script id="b" type="text/html">
             <ul>
                 {{for d.msg as k v}}
                 <li>{{k}}:{{v}}</li>
                 {{/for}}
+                {{for d.msg as k vs}}
+                <li style="color:red;">{{k}}:{{vs| entityencode}}</li>
+                {{/for}}
             </ul>
 <h1>{{#d.hello}}</h1>
+        </script><script id="c" type="text/html">
+
+<h1><%#d.name%></h1>
         </script>
         <script type="text/javascript">
-        
+        function format(s){
+            return '<?php '+s+'>';
+        }
         $(function(){
             var li=$('#test li:first').clone();
             var li1=$('#test li:first').clone();
@@ -48,11 +70,16 @@ test for date.format
             $('#test').append(li1);
             $('#test').append(li2);
         });
-        ltpl.init({
 
-        });
+function cb(){
+    console.info('%cparse end!','color:red;');
+}
 
-            $('body').append(ltpl.render('a'));
+        ltpl.helper('myhelper',function(v){return 'hello '+v;});
+            $('body').append(ltpl('a').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}}));
+            $('body').append(ltpl('b').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}}));
+        ltpl.config({openTag:'<%',closeTag:'%>'});
+            $('body').append(ltpl('c').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}}));
     </script>
     </body>
     
