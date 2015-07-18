@@ -18,6 +18,20 @@ test for date.format
     <li>test</li>
 </ul>
         </pre>
+        <script id="a" type="text/html">
+             <div>
+                 {{d.name}}
+            </div>
+            <span>{{d.age}}</span>
+        </script>
+        <script id="b" type="text/html">
+            <ul>
+                {{for d.msg as k v}}
+                <li>{{k}}:{{v}}</li>
+                {{/for}}
+            </ul>
+<h1>{{#d.hello}}</h1>
+        </script>
         <script type="text/javascript">
         
         $(function(){
@@ -34,6 +48,11 @@ test for date.format
             $('#test').append(li1);
             $('#test').append(li2);
         });
+        ltpl.init({
+
+        });
+
+            $('body').append(ltpl.render('a'));
     </script>
     </body>
     
