@@ -47,7 +47,7 @@ ltpl
 ------
 ###例子
  	function callback(){console.log('end!')}
-	ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</	h1>',msg:{a:1,b:'<h3>sb</h3>'}},callback)
+	ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},callback)
 	var html='<div>{{d.name}}</div>';     
 	html : 	<div>tsotsi</div>
 ####支持管道
