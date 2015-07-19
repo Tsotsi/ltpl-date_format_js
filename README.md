@@ -47,8 +47,8 @@ ltpl
 ------
 ###例子
  	function callback(){console.log('end!')}
-	ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},callback)
-	var html='<div>{{d.name}}</div>';     
+ 	var html='<div>{{d.name}}</div>';  
+	ltpl(html).render({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},callback);   
 	html : 	<div>tsotsi</div>
 ####支持管道
 	var html='<div>{{d.name| entityencode}}</div>';     	html : &lt;div&gt;tsotsi&lt;/div&gt;
@@ -58,14 +58,14 @@ ltpl
 ------
 ####支持自定义helper函数
 	ltpl.helper('myhelper',function(v){return 'hello '+v;});
-	ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}});
-	var html='<div>{{d.name| myhelper}}</div>';  
+	var html='<div>{{d.name| myhelper}}</div>'; 
+	ltpl(html).render({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}});
 	html : <div>hello tsotsi</div>
 ------
 ####支持重定义开闭标签
 	ltpl.config({openTag:'<%',closeTag:'%>'});
-	ltpl(html).renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}})
-	var html='<div><%d.name%></div>';    
+	var html='<div><%d.name%></div>';  
+	ltpl(html).render({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}});
 	html : <div>tsotsi</div>
 
 
