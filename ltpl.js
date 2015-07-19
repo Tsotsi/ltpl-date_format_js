@@ -79,7 +79,7 @@
                 match = match.replace(/\s/g, '').replace(exp(configs['openTag'], '', '', true), '";_view+=' + s).replace(exp(configs['closeTag'], '', '', true), e);
                 return match;
             }).replace(this.helper._prev_for(), function (match, p, data, k, v, body) {
-                match = '";for(var ' + k + ' in ' + data + '){var ' + v + '=' + data + '[' + k + '];_view+="' + body + '";};"';
+                match=v?'";for(var ' + k + ' in ' + data + '){var ' + v + '=' + data + '[' + k + '];_view+="' + body + '";};"':'";for(var k in ' + data + '){var ' + k + '=' + data + '[k];_view+="' + body + '";};"';
                 return match;
             });
         _v += '";';
