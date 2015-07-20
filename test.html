@@ -25,6 +25,14 @@ test for date.format
              <div style="color:red;" class='a'>
                  {{ d.name |myhelper}}
             </div>
+            <div style="color:blue;" class='a'>
+                {{ d.name}}
+                {{if(d.name=='tsots1i'){}}
+                <h3>hello {{d.name}}</h3>
+                {{}else{}}
+                <a href="maimayun.com">hehe</a>
+                {{}}}
+           </div>
             <span>{{d.age}}</span>
             <h1>{{d.height}}</h1>
             <h1>{{# d.info | format}}</h1>
@@ -76,11 +84,11 @@ function cb(){
 }
 
         ltpl.helper('myhelper',function(v){return 'hello '+v;});
-            $('body').append(ltpl('a').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}}));
-            $('body').append(ltpl('b').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}}));
+            $('body').append(ltpl('a').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},cb));
+            $('body').append(ltpl('b').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},cb));
         ltpl.config({openTag:'<%',closeTag:'%>'});
-            $('body').append(ltpl('c').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}}));
+            $('body').append(ltpl('c').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},cb));
     </script>
     </body>
-    
+
 </html>

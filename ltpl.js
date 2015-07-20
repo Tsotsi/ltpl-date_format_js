@@ -14,7 +14,8 @@
         '#\\s*?[\\w\\.]+?\\s*(|\\s*\\|\\s*([\\w\\.]+?))',
         '\\s*?[\\w\\.]+?\\s*(|\\s*\\|\\s*([\\w\\.]+?))',
         '?for\\s+([\\w\\.]+?)\\s+as\\s([\\w]+?)(\\s*?|\\s+?[\\w]+?\\s*?)\\s*?',
-        '/for\\s*?'
+        '/for\\s*?',
+        '[\\s\\S]+?'
     ];
 
     var exp = function (strExp, _, __, isPure) {
@@ -36,9 +37,26 @@
             }
             return str.replace(/([\'\"\\])/g, '\\$1');
         },
+        unescape: function (str) {
+            if (typeof str != 'string') {
+                return '';
+            }
+            return str.replace(/\\([\'\"\\])/g, '$1');
+        },
         _prev_for: function () {
 
             return exp(configs['openTag'] + parseTag[2] + configs['closeTag'] + '([\\s\\S]*?)' + configs['openTag'] + parseTag[3] + configs['closeTag'], '(', ')+', true);
+        },
+        _clear: function (str, s, e, _) {
+            _ = _ || '';
+            s = s || '';
+            e = e || '';
+            return str.replace(/\s/g, '').replace(exp(configs['openTag'], '^', _, true), '";_view+=' + s).replace(exp(configs['closeTag'], '', '$', true), e);
+        },
+        _clear_sen: function (str, s, e) {
+            s = s || '';
+            e = e || '';
+            return str.replace(exp(configs['openTag'], '^', '', true), '";_view+=' + s).replace(exp(configs['closeTag'], '', '$', true), e);
         }
 
     };
@@ -62,8 +80,7 @@
                     e = ')' + e;
                     match = match.replace(p1, '');
                 }
-                match = match.replace(/\s/g, '').replace(exp(configs['openTag'], '', '#', true), '";_view+=' + s).replace(exp(configs['closeTag'], '', '', true), e);
-                return match;
+                return that.helper._clear(match, s, e, '#');
             }).replace(exp(parseTag[1], '(', ')+'), function (match, p, p1, pipe) {
                 var s = '';
                 var e = '+"';
@@ -76,11 +93,11 @@
                     e = ')' + e;
                     match = match.replace(p1, '');
                 }
-                match = match.replace(/\s/g, '').replace(exp(configs['openTag'], '', '', true), '";_view+=' + s).replace(exp(configs['closeTag'], '', '', true), e);
-                return match;
+                return that.helper._clear(match, s, e);
             }).replace(this.helper._prev_for(), function (match, p, data, k, v, body) {
-                match=v?'";for(var ' + k + ' in ' + data + '){var ' + v + '=' + data + '[' + k + '];_view+="' + body + '";};"':'";for(var k in ' + data + '){var ' + k + '=' + data + '[k];_view+="' + body + '";};"';
-                return match;
+                return v ? '";for(var ' + k + ' in ' + data + '){var ' + v + '=' + data + '[' + k + '];_view+="' + body + '";};"' : '";for(var k in ' + data + '){var ' + k + '=' + data + '[k];_view+="' + body + '";};"';
+            }).replace(exp(parseTag[4], '(', ')+'), function (match) {
+                return that.helper._clear_sen(that.helper.unescape(match), '"";', '_view+="');
             });
         _v += '";';
         if (typeof callback == 'function') {
