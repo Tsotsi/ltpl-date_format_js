@@ -27,11 +27,14 @@ test for date.format
             </div>
             <div style="color:blue;" class='a'>
                 {{ d.name}}
-                {{if(d.name=='tsots1i'){}}
+                {{if(d.name=='tsots1i')}}
                 <h3>hello {{d.name}}</h3>
-                {{}else{}}
+                {{else:}}
                 <a href="maimayun.com">hehe</a>
-                {{}}}
+                {{/if}}
+                {{if(d.name=='tsotsi')}}
+                <a href="maimayun.com">hehe2</a>
+                {{/if}}
            </div>
             <span>{{d.age}}</span>
             <h1>{{d.height}}</h1>

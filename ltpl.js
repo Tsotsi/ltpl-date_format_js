@@ -13,9 +13,12 @@
     var parseTag = [
         '#\\s*?[\\w\\.]+?\\s*(|\\s*\\|\\s*([\\w\\.]+?))',
         '\\s*?[\\w\\.]+?\\s*(|\\s*\\|\\s*([\\w\\.]+?))',
-        '?for\\s+([\\w\\.]+?)\\s+as\\s([\\w]+?)(\\s*?|\\s+?[\\w]+?\\s*?)\\s*?',
+        '\\s*?for\\s+([\\w\\.]+?)\\s+as\\s([\\w]+?)(\\s*?|\\s+?[\\w]+?\\s*?)\\s*?',
         '/for\\s*?',
-        '[\\s\\S]+?'
+        '[\\s\\S]+?',
+        '\\s*?if\\s*?\\(\\s*?([\\s\\S]+?)\\s*?\\)\\s*?',
+        'else\:',
+        '/if\\s*?'
     ];
 
     var exp = function (strExp, _, __, isPure) {
@@ -45,7 +48,10 @@
         },
         _prev_for: function () {
 
-            return exp(configs['openTag'] + parseTag[2] + configs['closeTag'] + '([\\s\\S]*?)' + configs['openTag'] + parseTag[3] + configs['closeTag'], '(', ')+', true);
+            return exp( parseTag[2] + configs['closeTag'] + '('+parseTag[4]+')' + configs['openTag'] + parseTag[3] , '(', ')+');
+        },
+        _prev_if:function(){
+          return exp(parseTag[5]+configs['closeTag']+ '('+parseTag[4]+')' + '('+configs['openTag'] + parseTag[6] + configs['closeTag']+'|)'+ '('+parseTag[4]+')' + configs['openTag'] + parseTag[7],'(',')+');
         },
         _clear: function (str, s, e, _) {
             _ = _ || '';
@@ -96,12 +102,14 @@
                 return that.helper._clear(match, s, e);
             }).replace(this.helper._prev_for(), function (match, p, data, k, v, body) {
                 return v ? '";for(var ' + k + ' in ' + data + '){var ' + v + '=' + data + '[' + k + '];_view+="' + body + '";};"' : '";for(var k in ' + data + '){var ' + k + '=' + data + '[k];_view+="' + body + '";};"';
+            }).replace(this.helper._prev_if(),function(match,p,p1,p2,p3){
+              console.log(match,' : ',p,' : ',p1,' : ',p2,' : p3: ',p3);
             });
         _v += '";';
         if (typeof callback == 'function') {
             _v += 'callback();';
         }
-        _v += 'return _view;';console.log(_v);
+        _v += 'return _view;';console.log(that.helper._prev_if());
         try {
             this.cache = new Function('d', 'callback', _v);
             return this.cache(data, callback);
