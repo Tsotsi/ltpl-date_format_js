@@ -54,9 +54,9 @@
             return str.replace(/\s/g, '').replace(exp(configs['openTag'], '^', _, true), '";_view+=' + s).replace(exp(configs['closeTag'], '', '$', true), e);
         },
         _clear_sen: function (str, s, e) {
-            s = s || '';
-            e = e || '';
-            return str.replace(exp(configs['openTag'], '^', '', true), '";_view+=' + s).replace(exp(configs['closeTag'], '', '$', true), e);
+            s = s || '";';
+            e = e || '_view+="';
+            return str.replace(exp(configs['openTag'], '^', '', true),  s).replace(exp(configs['closeTag'], '', '$', true), e);
         }
 
     };
@@ -96,14 +96,12 @@
                 return that.helper._clear(match, s, e);
             }).replace(this.helper._prev_for(), function (match, p, data, k, v, body) {
                 return v ? '";for(var ' + k + ' in ' + data + '){var ' + v + '=' + data + '[' + k + '];_view+="' + body + '";};"' : '";for(var k in ' + data + '){var ' + k + '=' + data + '[k];_view+="' + body + '";};"';
-            }).replace(exp(parseTag[4], '(', ')+'), function (match) {
-                return that.helper._clear_sen(that.helper.unescape(match), '"";', '_view+="');
             });
         _v += '";';
         if (typeof callback == 'function') {
             _v += 'callback();';
         }
-        _v += 'return _view;';
+        _v += 'return _view;';console.log(_v);
         try {
             this.cache = new Function('d', 'callback', _v);
             return this.cache(data, callback);

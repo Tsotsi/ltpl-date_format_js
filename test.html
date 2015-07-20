@@ -37,14 +37,18 @@ test for date.format
             <h1>{{d.height}}</h1>
             <h1>{{# d.info | format}}</h1>
             <h1>{{# d.info }}</h1>
-            <h1>{{}}</h1>
+            <!-- <h1>{{}}</h1> -->
             {{for d.msg as v}}
 
              <h3>{{k}}:{{v}}</h3>
             {{/for}}
             {{for d.msg as vs}}
             <span style="color:red;">{{k}}:{{vs| entityencode}}</span>
-            {{/for}}
+            {{/for}}{{if(d.name=='tsots1i'){}}
+            <h3>hello {{d.name}}</h3>
+            {{}else{}}
+            <a href="maimayun.com">hehe</a>
+            {{}}}{{d.height}}
         </script>
         <script id="b" type="text/html">
             <ul>
