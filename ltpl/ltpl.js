@@ -15,7 +15,10 @@
         '\\s*?[\\w\\.\\[\\]]+?\\s*(|\\s*\\|\\s*([\\w\\.]+?))',
         '\\s*?for\\s+([\\w\\.]+?)\\s+as\\s([\\w]+?)(\\s*?|\\s+?[\\w]+?\\s*?)\\s*?',
         '/for\\s*?',
-        '[\\s\\S]+?'
+        '[\\s\\S]+?',
+        '\\s*?if\\s*?\\(\\s*?([\\s\\S]+?)\\s*?\\)\\s*?',
+        'else\:',
+        '/if\\s*?'
     ];
 
     var exp = function (strExp, _, __, isPure) {
@@ -46,6 +49,9 @@
         _prev_for: function () {
 
             return exp( parseTag[2] + configs['closeTag'] + '('+parseTag[4]+')' + configs['openTag'] + parseTag[3] , '(', ')+');
+        },
+        _prev_if:function(){
+          return exp(parseTag[5]+configs['closeTag']+ '('+parseTag[4]+')' + '('+configs['openTag'] + parseTag[6] + configs['closeTag']+'|)'+ '('+parseTag[4]+')' + configs['openTag'] + parseTag[7],'(',')+');
         },
         _clear: function (str, s, e, _) {
             _ = _ || '';
@@ -97,13 +103,16 @@
             }).replace(this.helper._prev_for(), function (match, p, data, k, v, body) {
                 return v ? '";for(var ' + k + ' in ' + data + '){var ' + v + '=' + data + '[' + k + '];_view+="' + body + '";};"' : '";for(var k in ' + data + '){var ' + k + '=' + data + '[k];_view+="' + body + '";};"';
             }).replace(exp('{'),'{_view+="').replace(exp('}'),'";}_view+="').replace(exp(parseTag[4],'(',')+'),function(match){
-              return that.helper._clear_sen(that.helper.unescape(match));
+              console.info(match);
+              return that.helper._clear_sen(that.helper.unescape(match), '', '');
+            }).replace(this.helper._prev_if(),function(match,p,p1,p2,p3){
+              // console.log(match,' : ',p,' : ',p1,' : ',p2,' : p3: ',p3);
             });
         _v += '";';
         if (typeof callback == 'function') {
             _v += 'callback();';
         }
-        _v += 'return _view;';
+        _v += 'return _view;';console.log(_v);
         try {
             this.cache = new Function('d', 'callback', _v);
             return this.cache(data, callback);
@@ -137,6 +146,6 @@
     ltpl.helper = function (idx, func) {
         helper[idx] = func;
     };
-    ltpl.v = '1.1 beta';
+    ltpl.v = '1.0 alpha';
     window.ltpl = ltpl;
 }();

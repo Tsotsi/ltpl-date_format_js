@@ -10,7 +10,7 @@ test for date.format
         <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
         <script src="./date.tgdz.js" type="text/javascript"></script>
         <script src="./date.format.js" type="text/javascript"></script>
-        <script src="./ltpl.js" type="text/javascript"></script>
+        <script src="./ltpl/ltpl.js" type="text/javascript"></script>
     </head>
     <body>
     <textarea id="ltpl"></textarea>
@@ -27,14 +27,14 @@ test for date.format
             </div>
             <div style="color:blue;" class='a'>
                 {{ d.name}}
-                {{if(d.name=='tsots1i')}}
+                <!-- {{if(d.name=='tsots1i')}}
                 <h3>hello {{d.name}}</h3>
                 {{else:}}
                 <a href="maimayun.com">hehe</a>
                 {{/if}}
                 {{if(d.name=='tsotsi')}}
                 <a href="maimayun.com">hehe2</a>
-                {{/if}}
+                {{/if}} -->
            </div>
             <span>{{d.age}}</span>
             <h1>{{d.height}}</h1>
@@ -53,7 +53,18 @@ test for date.format
             <a href="maimayun.com">hehe</a>
             {{}}}{{d.height}}
         </script>
-        <script id="b" type="text/html">
+        <script id="e" type="text/html">
+<table>
+  {{for(var i in d.for){}}
+<tr>
+  {{for(var j in d.for[i]){}}
+    <td>{{d.for[i][j]}}</td>
+  {{}}}
+</tr>
+{{}}}
+</table>
+        </script>
+            <script id="b" type="text/html">
             <ul>
                 {{for d.msg as k v}}
                 <li>{{k}}:{{v}}</li>
@@ -95,6 +106,8 @@ function cb(){
             $('body').append(ltpl('b').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},cb));
         ltpl.config({openTag:'<%',closeTag:'%>'});
             $('body').append(ltpl('c').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},cb));
+              ltpl.config({openTag:'{{',closeTag:'}}'});
+              $('body').append(ltpl('e').renderDom({for:[[11,12,13,14],[21,22,23,24]]},cb));
     </script>
     </body>
 
