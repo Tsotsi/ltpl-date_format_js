@@ -7,40 +7,25 @@ jQuery.extend({
             if (arguments.length <= 2) {
                 this._formatD = typeof arguments[0] !== 'undefined' ? arguments[0] : "";
                 this._times = typeof arguments[1] !== 'undefined' ? arguments[1] : new Date();
-                if (typeof this._formatD != 'string') {
+                if (typeof this._formatD !== 'string') {
                     throw new TypeError("jQuery.fmtDate:the first param must be string or null");
-                    return;
                 }
                 this._formatD = $.trim(this._formatD);
-                if (typeof this._times == 'number') {
+                if (typeof this._times === 'number') {
                     this._times = new Date(this._times);
                 }
                 if (this._times instanceof Date === false) {
-
                     throw new TypeError("jQuery.fmtDate:the second param must be number or a instanceof Date");
-                    return;
                 }
                 this._resultD = this._formatD;
                 this._initTime();
                 return this._fmtTime();
 
             } else {
-                console.error("jQuery.date neads less than 2 params");
+                console.error("jQuery.date needs less than 2 params");
             }
         },
         _initTime: function () {
-            //console.log('in jquery date |');
-            //console.log(this._times.getTimezoneOffset());
-//            console.log(this._times.UTC());
-//            console.log(this._times.getUTCMilliseconds());
-//            console.log(this._times.getTime());
-//            console.log(this._times.parse());
-//            console.log(this._times.getYear());
-//            console.log(this===jQuery);
-//            console.log(typeof this._times );
-//            console.log(new Date() instanceof Date);
-
-
             this._weekD = this._times.getDay();//from week day
             this._dayD = this._times.getDate();//from month day
             this._hoursD = this._times.getHours();
@@ -61,6 +46,7 @@ jQuery.extend({
             this._resultD = this._resultD.replace(/^(.*?)(\$e|\$c)?$/gi, '$1');
             return this._resultD;
         },
+
         /*
          * L 表示是否闰年  0  非 1 是
          * Y 是4位
@@ -79,6 +65,7 @@ jQuery.extend({
             this._replaceFunc('y', my);
 
         },
+
         /*
          * d  表示月份中的第几天 有前导0
          * j  表示月份中的第几天 无前导0
@@ -103,6 +90,7 @@ jQuery.extend({
         _replaceWeek: function () {
 
         },
+
         /*
          * format 结尾时$c 表示中文 $e 表示英文 不区别大小写 
          * F 月份  完整的文本
@@ -186,6 +174,7 @@ jQuery.extend({
 
             this._replaceFunc('F', i18n[choose][this._monthD]);
         },
+
         /*
          * g    小时 12小时制 无前导0
          * G    小时 24小时制 无前导0
@@ -212,6 +201,7 @@ jQuery.extend({
             var tmps = this._secondsD.toString();
             this._replaceFunc('s', tmps.length > 1 ? tmps : '0' + tmps);
         },
+
         _isRunNian: function (year) {
             if (year)
                 var y = year;
@@ -224,9 +214,11 @@ jQuery.extend({
             }
             return r;
         },
+
         _replaceTMP: function (str) {
             var regBL = /\{\&\&\}/g;
         },
+
         _alnDays: function (mon, year) {
             var res = 0;
             if (mon < 8) {
@@ -240,6 +232,7 @@ jQuery.extend({
             }
             return res;
         },
+
         _replaceFunc: function (str, place) {
             var reg3 = new RegExp(str, 'g');///j/g;
             var regY3 = new RegExp('\{' + str + '\}', 'g');///j/g;
@@ -250,6 +243,7 @@ jQuery.extend({
             this._resultD = this._resultD.replace(reg3, place);
             this._resultD = this._resultD.replace(regBL, reStr);
         },
+
         getTgdz: function (t) {
             var gz = ['庚子', '辛丑', '壬寅', '癸丑', '甲辰', '乙巳', '丙午', '丁未', '戊申', '己酉', '庚戌', '辛亥',
                 '壬子', '癸丑', '甲寅', '乙卯', '丙辰', '丁巳', '戊午', '己未', '庚申', '辛酉', '壬戌', '癸亥',

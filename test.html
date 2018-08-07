@@ -3,112 +3,122 @@
 test for date.format
 -->
 <html>
-    <head>
-        <title>Just Test</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
-        <script src="./date.tgdz.js" type="text/javascript"></script>
-        <script src="./date.format.js" type="text/javascript"></script>
-        <script src="./ltpl/ltpl.js" type="text/javascript"></script>
-    </head>
-    <body>
-    <textarea id="ltpl"></textarea>
-        <pre  style="margin:0 auto;background-color: #CCC;">
+<head>
+    <title>Just Test</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="date-format/date.tgdz.js" type="text/javascript"></script>
+    <script src="date-format/date.format.js" type="text/javascript"></script>
+    <script src="ltpl/ltpl.js" type="text/javascript"></script>
+</head>
+<body>
+<textarea id="ltpl"></textarea>
+<pre style="margin:0 auto;background-color: #CCC;">
 <ul id="test">
     <li>test</li>
 </ul>
         </pre>
-        <script id="a" type="text/html">
-            <!--hehe-->
-            <!---->
-             <div style="color:red;" class='a'>
-                 {{ d.name |myhelper}}
-            </div>
-            <div style="color:blue;" class='a'>
-                {{ d.name}}
-                <!-- {{if(d.name=='tsots1i')}}
-                <h3>hello {{d.name}}</h3>
-                {{else:}}
-                <a href="maimayun.com">hehe</a>
-                {{/if}}
-                {{if(d.name=='tsotsi')}}
-                <a href="maimayun.com">hehe2</a>
-                {{/if}} -->
-           </div>
-            <span>{{d.age}}</span>
-            <h1>{{d.height}}</h1>
-            <h1>{{# d.info | format}}</h1>
-            <h1>{{# d.info }}</h1>
-            <!-- <h1>{{}}</h1> -->
-            {{for d.msg as v}}
+<script id="a" type="text/html">
+    <!--hehe-->
+    <!---->
+    <div style="color:red;" class='a'>
+        {{ d.name |myhelper}}
+    </div>
+    <div style="color:blue;" class='a'>
+        {{ d.name}}
+        <!-- {{if(d.name=='tsots1i')}}
+        <h3>hello {{d.name}}</h3>
+        {{else:}}
+        <a href="maimayun.com">hehe</a>
+        {{/if}}
+        {{if(d.name=='tsotsi')}}
+        <a href="maimayun.com">hehe2</a>
+        {{/if}} -->
+    </div>
+    <span>{{d.age}}</span>
+    <h1>{{d.height}}</h1>
+    <h1>{{# d.info | format}}</h1>
+    <h1>{{# d.info }}</h1>
+    <!-- <h1>{{}}</h1> -->
+    {{for d.msg as v}}
 
-             <h3>{{k}}:{{v}}</h3>
-            {{/for}}
-            {{for d.msg as vs}}
-            <span style="color:red;">{{k}}:{{vs| entityencode}}</span>
-            {{/for}}{{if(d.name=='tsots1i'){}}
-            <h3>hello {{d.name}}</h3>
-            {{}else{}}
-            <a href="maimayun.com">hehe</a>
-            {{}}}{{d.height}}
-        </script>
-        <script id="e" type="text/html">
-<table>
-  {{for(var i in d.for){}}
-<tr>
-  {{for(var j in d.for[i]){}}
-    <td>{{d.for[i][j]}}</td>
-  {{}}}
-</tr>
-{{}}}
-</table>
-        </script>
-            <script id="b" type="text/html">
-            <ul>
-                {{for d.msg as k v}}
-                <li>{{k}}:{{v}}</li>
-                {{/for}}
-                {{for d.msg as k vs}}
-                <li style="color:red;">{{k}}:{{vs| entityencode}}</li>
-                {{/for}}
-            </ul>
-<h1>{{#d.hello}}</h1>
-        </script><script id="c" type="text/html">
+    <h3>{{k}}:{{v}}</h3>
+    {{/for}}
+    {{for d.msg as vs}}
+    <span style="color:red;">{{k}}:{{vs| entityencode}}</span>
+    {{/for}}{{if(d.name=='tsots1i'){}}
+    <h3>hello {{d.name}}</h3>
+    {{}else{}}
+    <a href="maimayun.com">hehe</a>
+    {{}}}{{d.height}}
+</script>
+<script id="e" type="text/html">
+    <table>
+        {{for(var i in d.for){}}
+        <tr>
+            {{for(var j in d.for[i]){}}
+            <td>{{d.for[i][j]}}</td>
+            {{}}}
+        </tr>
+        {{}}}
+    </table>
+</script>
+<script id="b" type="text/html">
+    <ul>
+        {{for d.msg as k v}}
+        <li>{{k}}:{{v}}</li>
+        {{/for}}
+        {{for d.msg as k vs}}
+        <li style="color:red;">{{k}}:{{vs| entityencode}}</li>
+        {{/for}}
+    </ul>
+    <h1>{{#d.hello}}</h1>
+</script>
+<script id="c" type="text/html">
 
-<h1><%#d.name%></h1>
-        </script>
-        <script type="text/javascript">
-        function format(s){
-            return '<?php '+s+'>';
-        }
-        $(function(){
-            var li=$('#test li:first').clone();
-            var li1=$('#test li:first').clone();
-            var li2=$('#test li:first').clone();
-            var f='Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |';
-            var f1='Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |$e';
-            var f2='Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |$c';
-            li.html(f+' : '+$.fmtDate(f));
-            li1.html(f1+' : '+$.fmtDate(f1));
-            li2.html(f2+' : '+$.fmtDate(f2));
-            $('#test').append(li);
-            $('#test').append(li1);
-            $('#test').append(li2);
-        });
+    <h1><%#d.name%></h1>
+</script>
+<script type="text/javascript">
+    function format(s) {
+        return '<?php ' + s + '>';
+    }
 
-function cb(){
-    console.info('%cparse end!','color:red;');
-}
+    $(function () {
+        var li = $('#test li:first').clone();
+        var li1 = $('#test li:first').clone();
+        var li2 = $('#test li:first').clone();
+        var f = 'Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |';
+        var f1 = 'Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |$e';
+        var f2 = 'Y-m-d H:i:s | F | n | t | L | y | D | j | w | z | g | G | h |$c';
+        li.html(f + ' : ' + $.fmtDate(f));
+        li1.html(f1 + ' : ' + $.fmtDate(f1));
+        li2.html(f2 + ' : ' + $.fmtDate(f2));
+        $('#test').append(li);
+        $('#test').append(li1);
+        $('#test').append(li2);
+    });
 
-        ltpl.helper('myhelper',function(v){return 'hello '+v;});
-            $('body').append(ltpl('a').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},cb));
-            $('body').append(ltpl('b').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},cb));
-        ltpl.config({openTag:'<%',closeTag:'%>'});
-            $('body').append(ltpl('c').renderDom({name:'tsotsi',info:'<h1>phper</h1>',msg:{a:1,b:'<h3>sb</h3>'}},cb));
-              ltpl.config({openTag:'{{',closeTag:'}}'});
-              $('body').append(ltpl('e').renderDom({for:[[11,12,13,14],[21,22,23,24]]},cb));
-    </script>
-    </body>
+    function cb() {
+        console.info('%cparse end!', 'color:red;');
+    }
+
+    ltpl.helper('myhelper', function (v) {
+        return 'hello ' + v;
+    });
+    $('body').append(ltpl('a').renderDom({
+        name: 'tsotsi',
+        height: 173,
+        age: 27,
+        info: '<h1>phper</h1>',
+        msg: {a: 1, b: '<h3>sb</h3>'}
+    }, cb));
+    $('body').append(ltpl('b').renderDom({name: 'tsotsi', info: '<h1>phper</h1>', msg: {a: 1, b: '<h3>sb</h3>'}}, cb));
+    ltpl.config({openTag: '<%', closeTag: '%>'});
+    $('body').append(ltpl('c').renderDom({name: 'tsotsi', info: '<h1>phper</h1>', msg: {a: 1, b: '<h3>sb</h3>'}}, cb));
+    ltpl.config({openTag: '{{', closeTag: '}}'});
+    $('body').append(ltpl('e').renderDom({for: [[11, 12, 13, 14], [21, 22, 23, 24]]}, cb));
+</script>
+</body>
 
 </html>
